@@ -11,7 +11,9 @@
     "test:run": "vitest run",
     "lint": "biome lint ./app",
     "format": "biome format --write ./app",
-    "prepare": "husky"
+    "prepare": "husky",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -22,6 +24,7 @@
     "@react-router/node": "^7.5.3",
     "@react-router/serve": "^7.5.3",
     "@reduxjs/toolkit": "^2.8.2",
+
     "@tanstack/react-query": "^5.83.0",
     "axios": "^1.10.0",
     "isbot": "^5.1.27",
@@ -33,6 +36,12 @@
   "devDependencies": {
     "@biomejs/biome": "^2.1.2",
     "@react-router/dev": "^7.5.3",
+    "@storybook/addon-essentials": "^8.2.2",
+    "@storybook/addon-interactions": "^8.2.2",
+    "@storybook/addon-links": "^8.2.2",
+    "@storybook/addon-onboarding": "^8.2.2",
+    "@storybook/react": "^8.2.2",
+    "@storybook/react-vite": "^8.2.2",
     "@tailwindcss/vite": "^4.1.4",
     "@tanstack/react-query-devtools": "^5.83.0",
     "@testing-library/jest-dom": "^6.6.3",
@@ -43,6 +52,7 @@
     "husky": "^9.1.7",
     "jsdom": "^26.1.0",
     "lint-staged": "^16.1.2",
+    "storybook": "^8.2.2",
     "tailwindcss": "^4.1.4",
     "typescript": "^5.8.3",
     "vite": "^6.3.3",
