@@ -6,11 +6,12 @@ import {
   Scripts,
   ScrollRestoration,
 } from 'react-router';
-
 import type { Route } from './+types/root';
 import './app.css';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { theme } from './lib/theme';
 
 const queryClient = new QueryClient();
 
@@ -31,8 +32,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang='en'>
       <head>
+        <title>Lab Contacts Management</title>
         <meta charSet='utf-8' />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
+        <meta
+          name='description'
+          content='Gerenciador de contatos com funcionalidades avançadas'
+        />
         <Meta />
         <Links />
       </head>
@@ -47,10 +53,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
-      <Outlet />
-    </QueryClientProvider>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools initialIsOpen={false} />
+        <Outlet />
+      </QueryClientProvider>
+    </ThemeProvider>
   );
 }
 
