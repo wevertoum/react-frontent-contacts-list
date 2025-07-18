@@ -33,8 +33,8 @@ export default function ContactsManagementLayout() {
   };
 
   const navItems = [
-    { text: 'Listar Usuários', path: 'list-users', icon: <PeopleIcon /> },
-    { text: 'Listar Contatos', path: 'list-contacts', icon: <ContactsIcon /> },
+    { text: 'List Users', path: 'list-users', icon: <PeopleIcon /> },
+    { text: 'List Contacts', path: 'list-contacts', icon: <ContactsIcon /> },
   ];
 
   const drawerContent = (
@@ -102,7 +102,7 @@ export default function ContactsManagementLayout() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Gerenciador
+            Contacts Management
           </Typography>
         </Toolbar>
       </AppBar>

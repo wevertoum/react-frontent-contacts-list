@@ -61,10 +61,10 @@ export default function ListContactsPage() {
   return (
     <Stack spacing={4}>
       <HeaderPageActions
-        title="Contatos"
-        subTitle="Gerencie os contatos dos usuários"
-        actionLabel="Novo Contato"
-        onAction={() => alert('Ação para criar novo contato!')}
+        title="Contacts"
+        subTitle="List of all contacts"
+        actionLabel="New Contact"
+        onAction={() => alert('Action to create a new contact')}
       />
 
       {isSmallScreen ? (

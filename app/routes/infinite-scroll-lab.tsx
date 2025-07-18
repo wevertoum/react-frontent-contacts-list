@@ -67,7 +67,7 @@ export default function InfiniteScrollLabPage() {
 
       {status === 'error' && (
         <Typography color="error" textAlign="center">
-          Nenhum personagem encontrado para "{debouncedSearchTerm}".
+          No characters found for "{debouncedSearchTerm}".
         </Typography>
       )}
 

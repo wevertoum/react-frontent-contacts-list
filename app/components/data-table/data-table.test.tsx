@@ -83,7 +83,7 @@ describe('DataTable Component', () => {
     );
 
     expect(
-      screen.getByRole('columnheader', { name: 'Ações' }),
+      screen.getByRole('columnheader', { name: 'Actions' }),
     ).toBeInTheDocument();
     const deleteButtons = screen.getAllByRole('button', { name: /excluir/i });
     expect(deleteButtons).toHaveLength(mockData.length);

@@ -37,7 +37,7 @@ export function UserForm({
           render={({ field }) => (
             <TextField
               {...field}
-              label="Nome Completo"
+              label="Complete Name"
               variant="outlined"
               error={!!errors.name}
               helperText={errors.name?.message}
@@ -64,8 +64,8 @@ export function UserForm({
           control={control}
           render={({ field }) => (
             <FormControl fullWidth error={!!errors.genre}>
-              <InputLabel>Gênero</InputLabel>
-              <Select {...field} label="Gênero">
+              <InputLabel>Genre</InputLabel>
+              <Select {...field} label="Genre">
                 <MenuItem value="Male">Masculino</MenuItem>
                 <MenuItem value="Female">Feminino</MenuItem>
                 <MenuItem value="Other">Outro</MenuItem>
@@ -78,7 +78,7 @@ export function UserForm({
         />
         <Stack direction="row" spacing={2} justifyContent="flex-end">
           <Button onClick={onCancel} color="secondary">
-            Cancelar
+            Cancel
           </Button>
           <Button type="submit" variant="contained" disabled={isSubmitting}>
             {isSubmitting ? 'Salvando...' : 'Salvar'}

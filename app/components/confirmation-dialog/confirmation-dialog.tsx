@@ -24,10 +24,10 @@ export function ConfirmationDialog({
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} color="secondary">
-          Cancelar
+          Cancel
         </Button>
         <Button onClick={onConfirm} color="primary" disabled={isLoading}>
-          {isLoading ? 'Excluindo...' : 'Confirmar'}
+          {isLoading ? 'Deleting...' : 'Confirm'}
         </Button>
       </DialogActions>
     </Dialog>

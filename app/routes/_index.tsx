@@ -12,23 +12,23 @@ export default function HomePage() {
         minHeight: '100vh',
       }}
     >
-      <Typography variant='h3' component='h1' gutterBottom>
-        Bem-vindo ao Gerenciador de Contatos
+      <Typography variant="h3" component="h1" gutterBottom>
+        Welcome to the Contacts Management App
       </Typography>
-      <Stack direction='row' spacing={2}>
+      <Stack direction="row" spacing={2}>
         <Button
           component={RouterLink}
-          to='/contacts-management'
-          variant='contained'
+          to="/contacts-management"
+          variant="contained"
         >
-          Gerenciar Contatos
+          Go to Contacts Management
         </Button>
         <Button
           component={RouterLink}
-          to='/infinite-scroll-lab'
-          variant='outlined'
+          to="/infinite-scroll-lab"
+          variant="outlined"
         >
-          Laboratório de Scroll Infinito
+          Explore Infinite Scroll Lab
         </Button>
       </Stack>
     </Container>

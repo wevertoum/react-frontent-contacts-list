@@ -22,8 +22,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    title: 'Gerenciar Usuários',
-    subTitle: 'Uma lista de todos os usuários no sistema.',
-    actionLabel: 'Criar Novo',
+    title: 'Contacts Management',
+    subTitle: 'A list of contacts',
+    actionLabel: 'Create Contact',
   },
 };

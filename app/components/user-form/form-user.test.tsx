@@ -25,13 +25,13 @@ describe('UserForm Component', () => {
 
     await waitFor(() => {
       expect(
-        screen.getByText(/o nome deve ter pelo menos 3 caracteres/i),
+        screen.getByText(/The name must be at least 3 characters long/i),
       ).toBeInTheDocument();
       expect(
-        screen.getByText(/por favor, insira um e-mail válido/i),
+        screen.getByText(/Please enter a valid email address/i),
       ).toBeInTheDocument();
       expect(
-        screen.getByText(/por favor, selecione um gênero/i),
+        screen.getByText(/please select a valid genre/i),
       ).toBeInTheDocument();
     });
 
@@ -49,7 +49,7 @@ describe('UserForm Component', () => {
       />,
     );
 
-    await user.type(screen.getByLabelText(/nome completo/i), 'John Doe');
+    await user.type(screen.getByLabelText(/complete name/i), 'John Doe');
     await user.type(screen.getByLabelText(/e-mail/i), 'john.doe@example.com');
 
     await user.click(screen.getByRole('combobox'));
@@ -91,7 +91,7 @@ describe('UserForm Component', () => {
       />,
     );
 
-    const cancelButton = screen.getByRole('button', { name: /cancelar/i });
+    const cancelButton = screen.getByRole('button', { name: /cancel/i });
     await user.click(cancelButton);
 
     expect(handleCancel).toHaveBeenCalledTimes(1);

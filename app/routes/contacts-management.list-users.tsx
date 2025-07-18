@@ -23,8 +23,8 @@ import type { User } from '~/types';
 
 const userColumns: ColumnDef<User>[] = [
   { header: 'ID', cell: (user) => user.id },
-  { header: 'Nome', cell: (user) => user.name },
-  { header: 'Gênero', cell: (user) => user.genre },
+  { header: 'Name', cell: (user) => user.name },
+  { header: 'Genre', cell: (user) => user.genre },
 ];
 
 const renderUserCard = (user: User) => (
@@ -76,18 +76,16 @@ export default function ListUsersPage() {
   }
 
   if (isError) {
-    return (
-      <Typography color="error">Falha ao carregar os usuários.</Typography>
-    );
+    return <Typography color="error">Fail to load users.</Typography>;
   }
 
   return (
     <>
       <Stack spacing={4}>
         <HeaderPageActions
-          title="Usuários"
-          subTitle="Gerencie os usuários do sistema"
-          actionLabel="Novo Usuário"
+          title="Users"
+          subTitle="List of all users"
+          actionLabel="New User"
           onAction={() => setIsDrawerOpen(true)}
         />
 
@@ -115,7 +113,7 @@ export default function ListUsersPage() {
       >
         <Box sx={{ width: 400, p: 3 }}>
           <Typography variant="h5" sx={{ mb: 3 }}>
-            Criar Novo Usuário
+            Create New User
           </Typography>
           <UserForm
             onSubmit={handleCreateUser}
@@ -127,8 +125,8 @@ export default function ListUsersPage() {
 
       <ConfirmationDialog
         open={!!userToDelete}
-        title="Confirmar Exclusão"
-        description={`Deseja excluir o usuário "${userToDelete?.name}"?`}
+        title="Confirm Delete"
+        description={`Are you sure you want to delete user "${userToDelete?.name}"? This action cannot be undone.`}
         onConfirm={handleConfirmDelete}
         onClose={() => setUserToDelete(null)}
         isLoading={deleteUserMutation.isPending}

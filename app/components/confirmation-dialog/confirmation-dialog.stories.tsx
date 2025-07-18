@@ -20,9 +20,9 @@ const meta: Meta<typeof ConfirmationDialog> = {
 
   args: {
     open: true,
-    title: 'Confirmar Exclusão',
+    title: 'Confirm Action',
     description:
-      'Você tem certeza que deseja excluir este item? Esta ação não pode ser desfeita.',
+      'Are you sure you want to delete this item? This action cannot be undone.',
   },
 };
 

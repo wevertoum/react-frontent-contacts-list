@@ -11,8 +11,8 @@ const renderWithTheme = (component: React.ReactNode) => {
 
 describe('ConfirmationDialog Component', () => {
   const defaultProps = {
-    title: 'Confirmar Ação',
-    description: 'Você tem certeza que deseja continuar?',
+    title: 'Confirm Action',
+    description: 'Are you sure you want to proceed?',
     onConfirm: vi.fn(),
     onClose: vi.fn(),
     isLoading: false,
@@ -29,10 +29,10 @@ describe('ConfirmationDialog Component', () => {
 
     expect(screen.getByRole('dialog')).toBeInTheDocument();
     expect(
-      screen.getByRole('heading', { name: /confirmar ação/i }),
+      screen.getByRole('heading', { name: /confirm action/i }),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/você tem certeza que deseja continuar/i),
+      screen.getByText(/are you sure you want to proceed\?/i),
     ).toBeInTheDocument();
   });
 
@@ -47,7 +47,7 @@ describe('ConfirmationDialog Component', () => {
       />,
     );
 
-    const confirmButton = screen.getByRole('button', { name: /confirmar/i });
+    const confirmButton = screen.getByRole('button', { name: /confirm/i });
     await user.click(confirmButton);
 
     expect(handleConfirm).toHaveBeenCalledTimes(1);
@@ -64,7 +64,7 @@ describe('ConfirmationDialog Component', () => {
       />,
     );
 
-    const cancelButton = screen.getByRole('button', { name: /cancelar/i });
+    const cancelButton = screen.getByRole('button', { name: /cancel/i });
     await user.click(cancelButton);
 
     expect(handleClose).toHaveBeenCalledTimes(1);
@@ -75,7 +75,7 @@ describe('ConfirmationDialog Component', () => {
       <ConfirmationDialog {...defaultProps} open={true} isLoading={true} />,
     );
 
-    const confirmButton = screen.getByRole('button', { name: /excluindo/i });
+    const confirmButton = screen.getByRole('button', { name: /deleting/i });
     expect(confirmButton).toBeInTheDocument();
     expect(confirmButton).toBeDisabled();
   });
