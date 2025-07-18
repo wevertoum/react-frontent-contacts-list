@@ -3,18 +3,22 @@ import {
   Card,
   CardContent,
   CircularProgress,
+  Drawer,
   Stack,
   Typography,
   useMediaQuery,
   useTheme,
 } from '@mui/material';
+import { useState } from 'react';
 import {
   type ColumnDef,
+  ConfirmationDialog,
   DataCards,
   DataTable,
   HeaderPageActions,
 } from '~/components';
-import { useUsers } from '~/features/users';
+import { UserForm, type UserFormValues } from '~/components/user-form';
+import { useCreateUser, useDeleteUser, useUsers } from '~/features/users';
 import type { User } from '~/types';
 
 const userColumns: ColumnDef<User>[] = [
@@ -40,9 +44,28 @@ const renderUserCard = (user: User) => (
 );
 
 export default function ListUsersPage() {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [userToDelete, setUserToDelete] = useState<User | null>(null);
   const { data: users = [], isLoading, isError } = useUsers();
+  const createUserMutation = useCreateUser();
+  const deleteUserMutation = useDeleteUser();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
+
+  const handleCreateUser = (values: UserFormValues) => {
+    createUserMutation.mutate(values, {
+      onSuccess: () => {
+        setIsDrawerOpen(false);
+      },
+    });
+  };
+
+  const handleConfirmDelete = () => {
+    if (!userToDelete) return;
+    deleteUserMutation.mutate(userToDelete.id, {
+      onSuccess: () => setUserToDelete(null),
+    });
+  };
 
   if (isLoading) {
     return (
@@ -59,27 +82,57 @@ export default function ListUsersPage() {
   }
 
   return (
-    <Stack spacing={4}>
-      <HeaderPageActions
-        title="Usuários"
-        subTitle="Gerencie os usuários do sistema"
-        actionLabel="Novo Usuário"
-        onAction={() => alert('Ação para criar novo usuário!')}
-      />
+    <>
+      <Stack spacing={4}>
+        <HeaderPageActions
+          title="Usuários"
+          subTitle="Gerencie os usuários do sistema"
+          actionLabel="Novo Usuário"
+          onAction={() => setIsDrawerOpen(true)}
+        />
 
-      {isSmallScreen ? (
-        <DataCards
-          data={users}
-          renderCard={renderUserCard}
-          getKey={(user) => user.id}
-        />
-      ) : (
-        <DataTable
-          data={users}
-          columns={userColumns}
-          getKey={(user) => user.id}
-        />
-      )}
-    </Stack>
+        {isSmallScreen ? (
+          <DataCards
+            data={users}
+            renderCard={renderUserCard}
+            getKey={(user) => user.id}
+            onDelete={(user) => setUserToDelete(user)}
+          />
+        ) : (
+          <DataTable
+            data={users}
+            columns={userColumns}
+            getKey={(user) => user.id}
+            onDelete={(user) => setUserToDelete(user)}
+          />
+        )}
+      </Stack>
+
+      <Drawer
+        anchor="right"
+        open={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+      >
+        <Box sx={{ width: 400, p: 3 }}>
+          <Typography variant="h5" sx={{ mb: 3 }}>
+            Criar Novo Usuário
+          </Typography>
+          <UserForm
+            onSubmit={handleCreateUser}
+            onCancel={() => setIsDrawerOpen(false)}
+            isSubmitting={createUserMutation.isPending}
+          />
+        </Box>
+      </Drawer>
+
+      <ConfirmationDialog
+        open={!!userToDelete}
+        title="Confirmar Exclusão"
+        description={`Deseja excluir o usuário "${userToDelete?.name}"?`}
+        onConfirm={handleConfirmDelete}
+        onClose={() => setUserToDelete(null)}
+        isLoading={deleteUserMutation.isPending}
+      />
+    </>
   );
 }

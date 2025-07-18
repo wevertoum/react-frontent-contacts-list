@@ -1,6 +1,7 @@
 import { ThemeProvider } from '@mui/material';
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { userEvent } from '@testing-library/user-event';
+import { describe, expect, it, vi } from 'vitest';
 import { theme } from '~/lib/theme';
 import { DataCards } from './data-cards';
 
@@ -44,5 +45,39 @@ describe('DataCards Component', () => {
 
     const cards = screen.queryAllByRole('article');
     expect(cards).toHaveLength(0);
+  });
+
+  it('should render a delete button for each card if onDelete is provided', () => {
+    const handleDelete = vi.fn();
+    renderWithTheme(
+      <DataCards
+        data={mockData}
+        renderCard={renderMockCard}
+        getKey={(item) => item.id}
+        onDelete={handleDelete}
+      />,
+    );
+
+    const deleteButtons = screen.getAllByRole('button', { name: /excluir/i });
+    expect(deleteButtons).toHaveLength(mockData.length);
+  });
+
+  it('should call onDelete with the correct item when delete button is clicked', async () => {
+    const user = userEvent.setup();
+    const handleDelete = vi.fn();
+    renderWithTheme(
+      <DataCards
+        data={mockData}
+        renderCard={renderMockCard}
+        getKey={(item) => item.id}
+        onDelete={handleDelete}
+      />,
+    );
+
+    const deleteButtons = screen.getAllByRole('button', { name: /excluir/i });
+    await user.click(deleteButtons[1]);
+
+    expect(handleDelete).toHaveBeenCalledTimes(1);
+    expect(handleDelete).toHaveBeenCalledWith(mockData[1]);
   });
 });

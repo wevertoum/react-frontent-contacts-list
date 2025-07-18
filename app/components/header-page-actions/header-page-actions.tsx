@@ -1,4 +1,13 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Add as AddIcon } from '@mui/icons-material';
+import {
+  Box,
+  Button,
+  IconButton,
+  Tooltip,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import type { HeaderPageActionsProps } from './header-page-actions.types';
 
 export function HeaderPageActions({
@@ -7,6 +16,9 @@ export function HeaderPageActions({
   actionLabel,
   onAction,
 }: HeaderPageActionsProps) {
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
+
   return (
     <Box
       sx={{
@@ -25,9 +37,32 @@ export function HeaderPageActions({
         </Typography>
       </Box>
       <Box>
-        <Button variant="contained" onClick={onAction}>
-          {actionLabel}
-        </Button>
+        {isSmallScreen ? (
+          <Tooltip title={actionLabel}>
+            <IconButton
+              color="primary"
+              aria-label={actionLabel}
+              onClick={onAction}
+              sx={{
+                backgroundColor: 'primary.main',
+                color: 'primary.contrastText',
+                '&:hover': {
+                  backgroundColor: 'primary.dark',
+                },
+              }}
+            >
+              <AddIcon />
+            </IconButton>
+          </Tooltip>
+        ) : (
+          <Button
+            variant="contained"
+            onClick={onAction}
+            startIcon={<AddIcon />}
+          >
+            {actionLabel}
+          </Button>
+        )}
       </Box>
     </Box>
   );

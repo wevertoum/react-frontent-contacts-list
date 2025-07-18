@@ -1,6 +1,7 @@
 import { ThemeProvider } from '@mui/material';
 import { render, screen, within } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { userEvent } from '@testing-library/user-event';
+import { describe, expect, it, vi } from 'vitest';
 import { theme } from '~/lib/theme';
 import { DataTable } from './data-table';
 import type { ColumnDef } from './data-table.types';
@@ -68,5 +69,42 @@ describe('DataTable Component', () => {
 
     const rows = screen.getAllByRole('row');
     expect(rows).toHaveLength(1);
+  });
+
+  it('should render an actions column with a delete button if onDelete is provided', () => {
+    const handleDelete = vi.fn();
+    renderWithTheme(
+      <DataTable
+        data={mockData}
+        columns={mockColumns}
+        getKey={(item) => item.id}
+        onDelete={handleDelete}
+      />,
+    );
+
+    expect(
+      screen.getByRole('columnheader', { name: 'Ações' }),
+    ).toBeInTheDocument();
+    const deleteButtons = screen.getAllByRole('button', { name: /excluir/i });
+    expect(deleteButtons).toHaveLength(mockData.length);
+  });
+
+  it('should call onDelete with the correct item when delete button is clicked', async () => {
+    const user = userEvent.setup();
+    const handleDelete = vi.fn();
+    renderWithTheme(
+      <DataTable
+        data={mockData}
+        columns={mockColumns}
+        getKey={(item) => item.id}
+        onDelete={handleDelete}
+      />,
+    );
+
+    const deleteButtons = screen.getAllByRole('button', { name: /excluir/i });
+    await user.click(deleteButtons[0]);
+
+    expect(handleDelete).toHaveBeenCalledTimes(1);
+    expect(handleDelete).toHaveBeenCalledWith(mockData[0]);
   });
 });
