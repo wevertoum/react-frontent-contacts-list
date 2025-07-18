@@ -1,7 +1,6 @@
 import { api } from '~/lib/axios';
 import type { Character } from '~/types';
 
-// Tipos para a resposta da API do Rick and Morty
 interface ApiInfo {
   count: number;
   pages: number;

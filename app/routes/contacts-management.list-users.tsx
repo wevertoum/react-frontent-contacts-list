@@ -18,7 +18,9 @@ import {
   HeaderPageActions,
 } from '~/components';
 import { UserForm, type UserFormValues } from '~/components/user-form';
+import { closeUserDrawer, openUserDrawer } from '~/features/ui/uiSlice';
 import { useCreateUser, useDeleteUser, useUsers } from '~/features/users';
+import { useAppDispatch, useAppSelector } from '~/store';
 import type { User } from '~/types';
 
 const userColumns: ColumnDef<User>[] = [
@@ -44,8 +46,13 @@ const renderUserCard = (user: User) => (
 );
 
 export default function ListUsersPage() {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [userToDelete, setUserToDelete] = useState<User | null>(null);
+
+  const dispatch = useAppDispatch();
+  const isCreateDrawerOpen = useAppSelector(
+    (state) => state.ui.isUserDrawerOpen,
+  );
+
   const { data: users = [], isLoading, isError } = useUsers();
   const createUserMutation = useCreateUser();
   const deleteUserMutation = useDeleteUser();
@@ -54,9 +61,7 @@ export default function ListUsersPage() {
 
   const handleCreateUser = (values: UserFormValues) => {
     createUserMutation.mutate(values, {
-      onSuccess: () => {
-        setIsDrawerOpen(false);
-      },
+      onSuccess: () => dispatch(closeUserDrawer()),
     });
   };
 
@@ -86,7 +91,7 @@ export default function ListUsersPage() {
           title="Users"
           subTitle="List of all users"
           actionLabel="New User"
-          onAction={() => setIsDrawerOpen(true)}
+          onAction={() => dispatch(openUserDrawer())}
         />
 
         {isSmallScreen ? (
@@ -108,8 +113,8 @@ export default function ListUsersPage() {
 
       <Drawer
         anchor="right"
-        open={isDrawerOpen}
-        onClose={() => setIsDrawerOpen(false)}
+        open={isCreateDrawerOpen}
+        onClose={() => dispatch(closeUserDrawer())}
       >
         <Box sx={{ width: 400, p: 3 }}>
           <Typography variant="h5" sx={{ mb: 3 }}>
@@ -117,7 +122,7 @@ export default function ListUsersPage() {
           </Typography>
           <UserForm
             onSubmit={handleCreateUser}
-            onCancel={() => setIsDrawerOpen(false)}
+            onCancel={() => dispatch(closeUserDrawer())}
             isSubmitting={createUserMutation.isPending}
           />
         </Box>

@@ -18,7 +18,7 @@ import { useDebounce } from '~/hooks/useDebounce';
 
 export default function InfiniteScrollLabPage() {
   const [searchTerm, setSearchTerm] = useState('');
-  const debouncedSearchTerm = useDebounce(searchTerm, 500); // Atraso de 500ms
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
     useInfiniteCharacters(debouncedSearchTerm);
 

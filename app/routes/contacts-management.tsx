@@ -6,6 +6,7 @@ import {
 import {
   AppBar,
   Box,
+  Button,
   Drawer,
   IconButton,
   List,
@@ -20,10 +21,13 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import { NavLink, Outlet } from 'react-router';
+import { openUserDrawer } from '~/features/ui/uiSlice';
+import { useAppDispatch } from '~/store';
 
 const drawerWidth = 240;
 
 export default function ContactsManagementLayout() {
+  const dispatch = useAppDispatch();
   const [mobileOpen, setMobileOpen] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -104,6 +108,16 @@ export default function ContactsManagementLayout() {
           <Typography variant="h6" noWrap component="div">
             Contacts Management
           </Typography>
+          <Button
+            sx={{
+              ml: 2,
+            }}
+            color="warning"
+            variant="contained"
+            onClick={() => dispatch(openUserDrawer())}
+          >
+            New User (Redux)
+          </Button>
         </Toolbar>
       </AppBar>
       <Box
