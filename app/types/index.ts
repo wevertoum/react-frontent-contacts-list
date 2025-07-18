@@ -16,3 +16,11 @@ export interface CreateUserPayload {
   email: string;
   genre: string;
 }
+
+export interface Character {
+  id: number;
+  name: string;
+  status: string;
+  species: string;
+  image: string;
+}

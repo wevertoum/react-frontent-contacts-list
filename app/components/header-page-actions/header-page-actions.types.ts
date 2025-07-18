@@ -3,4 +3,6 @@ export interface HeaderPageActionsProps {
   subTitle: string;
   actionLabel: string;
   onAction: () => void;
+  fixedAction?: boolean;
+  actionIcon?: React.ReactNode;
 }
