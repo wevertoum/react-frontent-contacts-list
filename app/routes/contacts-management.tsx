@@ -19,6 +19,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
+import { purple } from '@mui/material/colors';
 import { useState } from 'react';
 import { NavLink, Outlet } from 'react-router';
 import { openUserDrawer } from '~/features/ui/uiSlice';
@@ -54,7 +55,7 @@ export default function ContactsManagementLayout() {
           }}
         >
           <img
-            src="/images/docnix.png"
+            src="/images/housecallpro.png"
             alt="Docnix Logo"
             style={{ maxHeight: 36, width: 'auto' }}
           />
@@ -111,8 +112,8 @@ export default function ContactsManagementLayout() {
           <Button
             sx={{
               ml: 2,
+              bgcolor: purple[400],
             }}
-            color="warning"
             variant="contained"
             onClick={() => dispatch(openUserDrawer())}
           >
