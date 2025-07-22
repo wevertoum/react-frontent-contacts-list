@@ -22,7 +22,7 @@ export function DataCards<T extends { id: unknown }>({
         >
           <Box sx={{ position: 'relative' }}>
             {onDelete && (
-              <Tooltip title="Excluir">
+              <Tooltip title="Delete">
                 <IconButton
                   onClick={() => onDelete(item)}
                   size="small"

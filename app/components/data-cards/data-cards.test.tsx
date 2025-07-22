@@ -58,7 +58,7 @@ describe('DataCards Component', () => {
       />,
     );
 
-    const deleteButtons = screen.getAllByRole('button', { name: /excluir/i });
+    const deleteButtons = screen.getAllByRole('button', { name: /delete/i });
     expect(deleteButtons).toHaveLength(mockData.length);
   });
 
@@ -74,7 +74,7 @@ describe('DataCards Component', () => {
       />,
     );
 
-    const deleteButtons = screen.getAllByRole('button', { name: /excluir/i });
+    const deleteButtons = screen.getAllByRole('button', { name: /delete/i });
     await user.click(deleteButtons[1]);
 
     expect(handleDelete).toHaveBeenCalledTimes(1);

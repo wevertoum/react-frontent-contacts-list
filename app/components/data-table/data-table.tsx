@@ -24,7 +24,7 @@ export function DataTable<T extends { id: unknown }>({
     allColumns.push({
       header: 'Actions',
       cell: (item) => (
-        <Tooltip title="Excluir">
+        <Tooltip title="Delete">
           <IconButton onClick={() => onDelete(item)} size="small">
             <DeleteIcon fontSize="small" />
           </IconButton>

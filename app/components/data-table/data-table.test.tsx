@@ -85,7 +85,7 @@ describe('DataTable Component', () => {
     expect(
       screen.getByRole('columnheader', { name: 'Actions' }),
     ).toBeInTheDocument();
-    const deleteButtons = screen.getAllByRole('button', { name: /excluir/i });
+    const deleteButtons = screen.getAllByRole('button', { name: /delete/i });
     expect(deleteButtons).toHaveLength(mockData.length);
   });
 
@@ -101,7 +101,7 @@ describe('DataTable Component', () => {
       />,
     );
 
-    const deleteButtons = screen.getAllByRole('button', { name: /excluir/i });
+    const deleteButtons = screen.getAllByRole('button', { name: /delete/i });
     await user.click(deleteButtons[0]);
 
     expect(handleDelete).toHaveBeenCalledTimes(1);
